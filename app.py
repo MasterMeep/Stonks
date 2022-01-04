@@ -56,7 +56,7 @@ st.markdown(f"**Current Price**: ${'{:,}'.format(stock_information['currentPrice
 st.markdown(f"**Yahoo Finance Recommendation**: {stock_information['recommendationKey']}")
 st.markdown(f"**Gross Profits**: {'{:,}'.format(stock_information['grossProfits'])}")
 st.markdown(f"**Enterprise Value**: {'{:,}'.format(stock_information['enterpriseValue'])}")
-
+st.markdown(f"**Buisness Summary**: {stock_information['longBusinessSummary']}")
 
 info_state.text("Loading Data... Done!")
 info_state.text("")
