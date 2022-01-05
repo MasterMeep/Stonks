@@ -41,6 +41,38 @@ def plot_data():
     fig.layout.update(xaxis_rangeslider_visible = True)
     st.plotly_chart(fig)
 
+tickers_to_name = {x['Symbol']:x["Name"] for x in json.load(open("tickers.json"))}
+
+st.title(f"Open/Close Data for {tickers_to_name[selected_stock]}")
+plot_data()
+
+st.caption("Raw Data")
+st.write(data)
+
+
+
+st.title("Info")
+info_state = st.text("Loading Data...")
+
+stock_information = yf.Ticker(selected_stock).info
+
+st.markdown(f"**Industry**: {stock_information['industry']}")
+st.markdown(f"**Current Price**: ${'{:,}'.format(stock_information['currentPrice'])}")
+st.markdown(f"**Yahoo Finance Recommendation**: {stock_information['recommendationKey']}")
+st.markdown(f"**Gross Profits**: {'{:,}'.format(stock_information['grossProfits'])}")
+st.markdown(f"**Enterprise Value**: {'{:,}'.format(stock_information['enterpriseValue'])}")
+st.markdown(f"**Buisness Summary**: {stock_information['longBusinessSummary']}")
+
+info_state.text("Loading Data... Done!")
+info_state.text("")
+    fig = go.Figure()
+
+    fig.add_trace(go.Scatter(x=data["Date"], y=data["Close"], name="Close"))
+    fig.add_trace(go.Scatter(x=data["Date"], y=data["Open"], name="Open"))
+
+    fig.layout.update(xaxis_rangeslider_visible = True)
+    st.plotly_chart(fig)
+
 st.title("Open/Close Data")
 plot_data()
 
