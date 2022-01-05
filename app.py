@@ -4,17 +4,20 @@ from datetime import date
 
 import yfinance as yf
 from plotly import graph_objs as go
+import json
 
 START = "2018-01-01"
 TODAY = date.today().strftime("%Y-%m-%d")
 
 st.title("Stonks")
 
-stocks = ("GOOGL", "TSLA", "AMZN", "FB")
+data = json.load(open('tickers.json'))
+stocks = tuple(map(lambda x: x['Symbol'], data))
+
 selected_stock = st.selectbox("Select stock for prediction", stocks)
 current_period = st.select_slider(
-     'Select a color of the rainbow',
-     options=['5d',"1mo","3mo","6mo","1y",'2y','5y','10y','ytd','max'])
+     'Select a peiod of time',
+     options=['5d',"1mo","3mo","6mo","1y",'2y','5y','10y','max'])
 
 
 @st.cache
